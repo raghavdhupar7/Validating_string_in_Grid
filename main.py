@@ -5,27 +5,30 @@ def is_valid_string(arr, s):
             if arr[i][j] not in positions:
                 positions[arr[i][j]] = []
             positions[arr[i][j]].append((i, j))
-    #print(positions)
+    
     if s[0] not in positions:
         return False
     
     prev_positions = positions[s[0]]
-    print(prev_positions)
+    
     for char in s[1:]:
         if char not in positions:
             return False
-
-        found = False
+        
+        next_positions = []
         for prev_row, prev_column in prev_positions:
             for next_row, next_column in positions[char]:
                 if next_row == prev_row or next_column == prev_column:
-                    prev_positions = [(next_row, next_column)]
-                    found = True
-                    break
-            if found:
-                break
-        if not found:
+                    next_positions.append((next_row, next_column))
+        
+        if not next_positions:
+                     
+                     
+                     
             return False
+        
+        prev_positions = next_positions
+    
     return True
 
 arr = [
@@ -34,5 +37,6 @@ arr = [
     ["r", "h", "r", "j"], 
     ["n", "m", "b", "v"]
 ]
-s = "abhj"
+
+s = "nmjo"
 print(is_valid_string(arr, s))
